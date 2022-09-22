@@ -19,4 +19,21 @@ interface HostingInterface {
    *   Filesystem instance.
    */
   public function build(StyleInterface $io, FilesystemAdapter $fs, ProjectInterface $project);
+
+  /**
+   * Service name.
+   *
+   * @return string
+   *   Human-readable name of the service.
+   */
+  public function name(): array;
+
+  /**
+   * Service instructions.
+   *
+   * @return array
+   *   Array of additional instructions.
+   */
+  public function instructions(): array;
+
 }
