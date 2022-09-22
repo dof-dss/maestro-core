@@ -1,0 +1,17 @@
+{
+  "name": "dof-dss/maestro-core",
+  "description": "Maestro core composition project",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Maestro\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "OMAHM",
+      "email": "hello@onemanandhismouse.com"
+    }
+  ]
+}
