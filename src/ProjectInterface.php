@@ -4,9 +4,6 @@ namespace Maestro\Core;
 
 /**
  * Interface for Maestro Project definition.
- *
- * IMPORTANT: Changes to this interface must be replicated to the matching
- * interface within the MaestroHosting project.
  */
 interface ProjectInterface {
 
