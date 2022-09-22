@@ -5,7 +5,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Maestro\\": "src/"
+      "Maestro\\Core\\": "src"
     }
   },
   "authors": [
