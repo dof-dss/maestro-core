@@ -17,6 +17,8 @@ interface HostingInterface {
    *   Symfony style instance.
    * @param \League\Flysystem\FilesystemAdapter $fs
    *   Filesystem instance.
+   * @param \Maestro\Core\ProjectInterface $project
+   *   Filesystem instance.
    */
   public function build(StyleInterface $io, FilesystemAdapter $fs, ProjectInterface $project);
 
