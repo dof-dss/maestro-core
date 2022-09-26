@@ -2,6 +2,8 @@
 
 namespace Maestro\Core\Filesystem;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Provides basic filesystem functions.
  */
@@ -28,7 +30,6 @@ class Filesystem {
   public function __construct($path) {
     $this->rootPath = $path;
     $this->fs = new \Symfony\Component\Filesystem\Filesystem();
-
   }
 
   /**
@@ -53,7 +54,24 @@ class Filesystem {
    *   The file contents.
    */
   public function read($path) {
-    return $this->fs->exists($this->fullPath($path));
+    $path = $this->fullPath($path);
+
+    if (!$this->fs->exists($path)) {
+      return NULL;
+    }
+
+    switch (pathinfo($path, PATHINFO_EXTENSION)) {
+      case 'yaml':
+      case 'yml':
+        return Yaml::parseFile($path);
+
+      case 'env':
+        return parse_ini_file($path);
+
+      default:
+        return file_get_contents($path);
+
+    }
   }
 
   /**
@@ -61,11 +79,21 @@ class Filesystem {
    *
    * @param string $path
    *   The path to the file.
-   * @param string|resource $content
+   * @param mixed $content
    *   The contents to write to the file.
    */
   public function write($path, $content) {
-    $this->fs->dumpFile($this->fullPath($path), $content);
+    $path = $this->fullPath($path);
+
+    if (str_ends_with($path, '.env')) {
+      $content = self::arrayToIni($content);
+    }
+
+    if (str_ends_with($path, '.yml') || str_ends_with($path, '.yaml')) {
+      $content = Yaml::dump($content, 6);
+    }
+
+    $this->fs->dumpFile($path, $content);
   }
 
   /**
@@ -87,10 +115,13 @@ class Filesystem {
    *   The path of the destination.
    */
   public function copy($path, $destination) {
+    $path = $this->fullPath($path);
+    $destination = $this->fullPath($destination);
+
     if ($this->isDir($path)) {
-      $this->fs->mirror($this->fullPath($path), $this->fullPath($destination));
+      $this->fs->mirror($path, $destination);
     } else {
-      $this->fs->copy($this->fullPath($path), $this->fullPath($destination));
+      $this->fs->copy($path, $destination);
     }
   }
 
@@ -152,4 +183,30 @@ class Filesystem {
 
     return $this->rootPath . $path;
   }
+
+  /**
+   * Convert arrays to ini file format.
+   *
+   * @param array $data
+   *   Array of data to be written.
+   * @param int $i
+   *   Ini file index.
+   *
+   * @return string
+   *   string of ini format data.
+   */
+  protected static function arrayToIni(array $data, $i = 0) {
+    $str = "";
+    foreach ($data as $key => $val) {
+      if (is_array($val)) {
+        $str .= str_repeat(" ", $i * 2) . "[$key]" . PHP_EOL;
+        $str .= self::arrayToIni($val, $i + 1);
+      }
+      else {
+        $str .= str_repeat(" ", $i * 2) . "$key = $val" . PHP_EOL;
+      }
+    }
+    return $str;
+  }
+
 }
