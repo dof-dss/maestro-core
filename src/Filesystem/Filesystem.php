@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Core;
+namespace Maestro\Core\Filesystem;
 
 /**
  * Provides basic filesystem functions.
@@ -65,7 +65,7 @@ class Filesystem {
    *   The contents to write to the file.
    */
   public function write($path, $content) {
-      return $this->fs->dumpFile($this->fullPath($path), $content);
+    $this->fs->dumpFile($this->fullPath($path), $content);
   }
 
   /**
@@ -75,7 +75,7 @@ class Filesystem {
    *   The path to the file or directory.
    */
   public function delete($path) {
-    return $this->fs->remove($this->fullPath($path));
+    $this->fs->remove($this->fullPath($path));
   }
 
   /**
@@ -88,9 +88,9 @@ class Filesystem {
    */
   public function copy($path, $destination) {
     if ($this->isDir($path)) {
-      return $this->fs->mirror($this->fullPath($path), $this->fullPath($destination));
+      $this->fs->mirror($this->fullPath($path), $this->fullPath($destination));
     } else {
-      return $this->fs->copy($this->fullPath($path), $this->fullPath($destination));
+      $this->fs->copy($this->fullPath($path), $this->fullPath($destination));
     }
   }
 
@@ -101,7 +101,7 @@ class Filesystem {
    *   The path of the directory.
    */
   public function createDirectory($path) {
-    return $this->fs->mkdir($this->fullPath($path));
+    $this->fs->mkdir($this->fullPath($path));
   }
 
   /**
@@ -113,7 +113,7 @@ class Filesystem {
    *   The name of the symlink.
    */
   public function link($source, $link) {
-    return $this->fs->symlink($this->fullPath($source), $this->fullPath($link));
+    $this->fs->symlink($this->fullPath($source), $this->fullPath($link));
   }
 
   /**
@@ -145,6 +145,11 @@ class Filesystem {
    *   The full root and path.
    */
   protected function fullPath($path) {
+    // If the path starts with a double slash do not prepend the rootPath.
+    if (str_starts_with($path, '//')) {
+      return substr($path, 1, strlen($path));
+    }
+
     return $this->rootPath . $path;
   }
 }
