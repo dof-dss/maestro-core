@@ -2,7 +2,7 @@
 
 namespace Maestro\Core;
 
-use Maestro\Core\Filesystem\Filesystem;
+use Maestro\Core\FilesystemInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 
 /**
@@ -15,12 +15,12 @@ interface HostingInterface {
    *
    * @param \Symfony\Component\Console\Style\StyleInterface $io
    *   Symfony style instance.
-   * @param \Maestro\Core\Filesystem\Filesystem $fs
+   * @param \Maestro\Core\FilesystemInterface $fs
    *   Filesystem instance.
    * @param \Maestro\Core\ProjectInterface $project
    *   Filesystem instance.
    */
-  public function build(StyleInterface $io, Filesystem $fs, ProjectInterface $project);
+  public function build(StyleInterface $io, FilesystemInterface $fs, ProjectInterface $project);
 
   /**
    * Service name.
@@ -28,7 +28,7 @@ interface HostingInterface {
    * @return string
    *   Human-readable name of the service.
    */
-  public function name(): array;
+  public function name(): string;
 
   /**
    * Service instructions.

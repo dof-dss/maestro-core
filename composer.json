@@ -13,8 +13,5 @@
       "name": "OMAHM",
       "email": "hello@onemanandhismouse.com"
     }
-  ],
-  "require": {
-    "symfony/filesystem": "^4.2"
-  }
+  ]
 }
