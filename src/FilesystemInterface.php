@@ -48,14 +48,24 @@ interface FilesystemInterface {
   public function delete($path);
 
   /**
-   * Copy a file or directory
+   * Copy a file.
    *
    * @param string $path
-   *   The path of the file or directory to copy.
+   *   The path of the file to copy.
    * @param string $destination
    *   The path of the destination.
    */
   public function copy($path, $destination);
+
+  /**
+   * Copy a file.
+   *
+   * @param string $path
+   *   The path of the file to copy.
+   * @param string $destination
+   *   The path of the destination.
+   */
+  public function copyDirectory($path, $destination);
 
   /**
    * Create a directory.
@@ -74,14 +84,5 @@ interface FilesystemInterface {
    *   The name of the symlink.
    */
   public function link($source, $link);
-
-  /**
-   * Check if the path is a directory
-   *
-   * @param string $path The path to check.
-   *
-   * @return boolean
-   */
-  public function isDir($path);
 
 }
