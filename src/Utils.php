@@ -3,7 +3,7 @@
 namespace Maestro\Core;
 
 /**
- * Maestro Shell Utilities.
+ * Maestro utilities.
  */
 class Utils {
 
