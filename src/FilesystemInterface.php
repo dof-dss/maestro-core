@@ -76,6 +76,14 @@ interface FilesystemInterface {
   public function createDirectory($path);
 
   /**
+   * Return the contents of a path.
+   *
+   * @param string $path
+   *   The path to retrieve a list of contents.
+   */
+  public function pathContents($path);
+
+  /**
    * Create a symlink.
    *
    * @param string $source
