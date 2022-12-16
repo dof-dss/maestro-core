@@ -20,4 +20,21 @@ class Utils {
     return strtolower(str_replace(' ', '_', $name));
   }
 
+  /**
+   * Create a machine safe site ID.
+   *
+   * @param string $url
+   *   Url to create a site ID for.
+   *
+   * @return string
+   *   Machine safe site ID.
+   */
+  public static function createSiteId($url) {
+    $url = strtolower(str_replace('-', '', $url));
+
+    // Strip http, www and domain to leave site name.
+    preg_match_all('/(http:\/\/)*(?:www\.)?([a-z0-9\-]+)(?:\.[a-z\.]+[\/]?).*/', $url, $matches, PREG_SET_ORDER, 0);
+    return $matches[0][2];
+  }
+
 }
