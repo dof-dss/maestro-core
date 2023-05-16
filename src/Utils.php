@@ -30,8 +30,8 @@ class Utils {
    *   Machine safe site ID.
    */
   public static function createSiteId($url) {
-    if ($url === 'https://info.library.nics.gov.uk') {
-      $url = 'https://infolibrarynics.gov.uk';
+    if ($url === 'info.library.nics.gov.uk') {
+      $url = 'infolibrarynics.gov.uk';
     }
     else {
       $url = strtolower(str_replace('-', '', $url));
