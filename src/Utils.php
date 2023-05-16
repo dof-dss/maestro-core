@@ -33,6 +33,9 @@ class Utils {
     if ($url === 'info.library.nics.gov.uk') {
       $url = 'infolibrarynics.gov.uk';
     }
+    if ($url === 'pressclippings.nics.gov.uk') {
+      $url = 'pressclippingsnics.gov.uk';
+    }
     else {
       $url = strtolower(str_replace('-', '', $url));
     }
