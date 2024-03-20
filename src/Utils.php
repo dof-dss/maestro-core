@@ -36,6 +36,9 @@ class Utils {
     elseif ($url === 'pressclippings.nics.gov.uk') {
       $url = 'pressclippingsnics.gov.uk';
     }
+    elseif ($url === 'independentpanel.truthrecoveryni.co.uk') {
+        $url = 'independentpaneltruthrecoveryni.co.uk';
+    }
     else {
       $url = strtolower(str_replace('-', '', $url));
     }
