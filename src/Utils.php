@@ -17,7 +17,7 @@ class Utils {
    *   Machine safe application ID.
    */
   public static function createApplicationId($name) {
-    return strtolower(str_replace(' ', '_', $name));
+    return strtolower(str_replace(' ', '.', $name));
   }
 
   /**
